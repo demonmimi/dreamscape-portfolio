@@ -17,11 +17,13 @@ export default function Home() {
       <div className="paper-panel home-hero__intro">
         {hero.intro}
         <p className="home-hero__flavor">{hero.flavor}</p>
+        {/* The invitation is written on the letter itself — paper guarantees
+            readable contrast in all five sky phases (see contrast table in
+            components.css). */}
+        <a className="home-hero__cta" href="#about">
+          {hero.ctaExplore} ↓
+        </a>
       </div>
-
-      <a className="home-hero__cta on-sky" href="#about">
-        {hero.ctaExplore} ↓
-      </a>
     </section>
   )
 }

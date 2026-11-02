@@ -77,13 +77,17 @@
 }
 
 .home-hero__cta {
+  display: inline-block;         /* allows its own spacing inside the panel */
+  margin-top: var(--space-md);
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: 600;
   font-size: var(--fs-body);
-  color: var(--color-link);
+  color: var(--color-link);      /* royal lavender on cream ≈ 4.95:1 — AA ✓ */
 }
 
 .home-hero__cta:hover {
-  color: var(--color-link-hover);
+  /* rose (#E58BB0) on cream measures only ≈ 2.3:1 — replaced by ink.
+     Hover changes shade, not hue family: lavender → plum keeps the mood. */
+  color: var(--color-ink);
 }
