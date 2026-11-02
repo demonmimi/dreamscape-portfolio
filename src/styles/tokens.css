@@ -25,6 +25,18 @@
   --color-paper-border:   #C9BCE0;   /* dusty lavender — panel outlines    */
   --color-link:           #7B5EA7;   /* royal lavender                     */
   --color-link-hover:     #E58BB0;   /* rose                               */
+  /* --------------------------------------------------------------------
+     GLASS — the paper soul, translucent. Used only on *display-layer*
+     surfaces (hero panel, Sky-Dial). Reading-critical scholarships keep
+     solid --color-paper; glass is checked mathematically per phase
+     (worst case: night sky, plum ink ≈ 5.2:1 — passes AA).
+     -------------------------------------------------------------------- */
+  --glass-bg:       rgba(253, 247, 236, 0.44);  /* the paper, at 44% air  */
+  --glass-veil: linear-gradient(                     /* light trapped inside  */
+    160deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.10) 100%);
+  --glass-border:   rgba(255, 255, 255, 0.65);  /* delicate white edge   */
+  --glass-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.85); /* upper-left light */
+
   --color-focus:          #EFB54A;   /* gold — focus rings & magic only    */
   --color-gold-soft:      #F2CF8D;   /* selection dust, soft highlights    */
   --color-gold:           #EFB54A;

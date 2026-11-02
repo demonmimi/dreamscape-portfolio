@@ -17,6 +17,20 @@
   padding: var(--space-lg);
 }
 
+/* --- .glass: the translucent sibling of the paper panel ------------------
+   Display-layer surfaces only. Later in this file than .paper-panel, so
+   applying both classes lets glass override color & border while keeping
+   the paper's radius & padding. Readability was verified against phases
+   in tokens.css before adopting it. */
+.glass {
+  background: var(--glass-bg);
+  background-image: var(--glass-veil);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-highlight), var(--shadow-lift);
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+}
+
 /* --- .on-sky: large display text that intentionally floats on the sky ----
    Display sizes only (hero titles) — cream ink + a soft plum glow keeps
    it readable across all five phases. Body text stays on paper panels. */
@@ -73,21 +87,162 @@
   margin-top: var(--space-sm);
   font-family: var(--font-accent);
   font-style: italic;
-  color: var(--color-ink-soft);
+  /* on glass, plum ink keeps ≥5.2:1 in every phase; the mauve of
+     --color-ink-soft slid to ≈2.5:1 over Night-glass — retired here. */
+  color: var(--color-ink);
 }
 
 .home-hero__cta {
   display: inline-block;         /* allows its own spacing inside the panel */
   margin-top: var(--space-md);
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: 600;
   font-size: var(--fs-body);
-  color: var(--color-link);      /* royal lavender on cream ≈ 4.95:1 — AA ✓ */
+  /* royal lavender measured ≈2.3:1 over Night-glass — glass demands ink */
+  color: var(--color-ink);
+  transition: background-color var(--dur-fast) var(--ease-soft);
 }
 
 .home-hero__cta:hover {
-  /* rose (#E58BB0) on cream measures only ≈ 2.3:1 — replaced by ink.
-     Hover changes shade, not hue family: lavender → plum keeps the mood. */
+  /* the wax-seal moment: a little gold halo pill appears under the words.
+     Solid gold-soft under plum ink ≈ 6:1 — invariant across all phases. */
+  background: var(--color-gold-soft);
+}
+
+/* ============================================================================
+   SKY-DIAL — the Living Sky's control (Malek's first invented feature)
+   ----------------------------------------------------------------------------
+   Glass pill, bottom-right; the expanded panel opens UPWARD (see mobile
+   contract: bottom edge is precious on phones, and the panel must never
+   feel like a wall of settings). The ink-glass keeps cream text readable
+   on ALL five phases — same trick as .on-sky, but as a backdrop.
+   ============================================================================ */
+.sky-dial {
+  position: fixed;
+  right: var(--space-md);
+  bottom: var(--space-md);
+  z-index: var(--z-ui);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* The glass itself: DREAMSCAPE's answer to glassmorphism — the paper
+   color made translucent and lifted (never a dark slab, never neon).
+   Blur + slight saturation so the sky glows *through* it like a painted
+   window. Text is INK here: on cream-tinted glass, plum ink keeps its
+   ~5.7:1 contrast over Night's darkest sky and ~6:1 over Sunset. */
+.sky-dial__toggle,
+.sky-dial__panel {
+  background: var(--glass-bg);
+  background-image: var(--glass-veil);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-highlight), var(--shadow-lift);
+  border-radius: 999px;
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  color: var(--color-ink);
+}
+
+.sky-dial__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;                       /* mobile tap target, honored */
+  padding: 0 var(--space-md);
+  cursor: pointer;
+}
+
+.sky-dial__glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 0.85rem;               /* cameo-sized, storybook pin */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(242, 207, 141, 0.45));
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    0 1px 3px rgba(58, 46, 85, 0.15);
+}
+
+.sky-dial__label {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.sky-dial__preview {
+  padding: 0 var(--space-xs);
+  border-radius: 999px;
+  background: rgba(123, 94, 167, 0.16);      /* lavender mist */
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+
+.sky-dial__panel {
+  /* opens UPWARD from the pill — mobile contract rule #1 */
+  position: absolute;
+  bottom: calc(100% + var(--space-sm));
+  right: 0;
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+  display: grid;
+  grid-template-columns: repeat(2, max-content);  /* columns fit their texts  */
+  gap: var(--space-xs);
+  width: max-content;          /* hug the content — never squeezed into overlap */
+  max-width: calc(100vw - 2 * var(--space-md)); /* only as a narrow-screen safety */
+}
+
+.sky-dial__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;      /* centered — chips, not list rows */
+  gap: var(--space-xs);
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--space-sm);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.22));
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),   /* light on the chip  */
+    0 1px 4px rgba(58, 46, 85, 0.10);           /* soft plum ground   */
+  color: inherit;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  white-space: nowrap;      /* labels never wrap, clip or collide */
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-soft),
+    box-shadow var(--dur-fast) var(--ease-soft);
+}
+
+.sky-dial__btn > span[aria-hidden] {
+  font-size: 1rem;          /* glyphs whisper, labels speak */
+}
+
+.sky-dial__btn:hover {
+  /* lavender mist rises *through* the chip + a soft glow beneath it */
+  background: linear-gradient(160deg, rgba(123, 94, 167, 0.16), rgba(123, 94, 167, 0.05));
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    0 3px 10px rgba(123, 94, 167, 0.25);
+}
+
+/* The active choice: warm gold on ink glass — cream text 'switches off'
+   (plum on gold ≈ 6:1, readable in an instant). */
+.sky-dial__btn.is-active,
+.sky-dial__btn.is-active:hover {
+  background: var(--color-gold-soft);
   color: var(--color-ink);
 }

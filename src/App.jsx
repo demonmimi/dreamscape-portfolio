@@ -6,12 +6,14 @@
  * exist on disk pending Malek's deletion approval — nothing was removed.
  */
 import SkyLayers from './ui/SkyLayers.jsx'
+import SkyDial from './ui/SkyDial.jsx'
 import Home from './sections/Home.jsx'
 
 export default function App() {
   return (
     <>
       <SkyLayers />
+      <SkyDial />
       <main>
         <Home />
       </main>

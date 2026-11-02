@@ -14,7 +14,7 @@ export default function Home() {
       <h1 className="home-hero__name on-sky">{site.name}</h1>
       <p className="home-hero__title on-sky">{site.title}</p>
 
-      <div className="paper-panel home-hero__intro">
+      <div className="paper-panel glass home-hero__intro">
         {hero.intro}
         <p className="home-hero__flavor">{hero.flavor}</p>
         {/* The invitation is written on the letter itself — paper guarantees
