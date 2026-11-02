@@ -95,6 +95,18 @@ html[data-sky="afternoon"] .sky--afternoon { opacity: 1; }
 html[data-sky="sunset"]    .sky--sunset    { opacity: 1; }
 html[data-sky="night"]     .sky--night     { opacity: 1; }
 
+/* ----------------------------------------------------------------------------
+   THE 3D WORLD LAYER — Stage 0 of the kingdom.
+   Transparent canvas ABOVE the CSS sky, BELOW all content. If WebGL
+   fails, nothing paints here and the CSS sky remains — our fallback
+   by construction, not by code. --z-world was born for this line.
+   ---------------------------------------------------------------------------- */
+.world-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-world);
+  pointer-events: none;   /* scenery, not interface — clicks pass to content */
+
 /* --- Headings inherit the storybook voice ------------------------------ */
 h1,
 h2,
