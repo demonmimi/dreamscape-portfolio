@@ -92,10 +92,15 @@ I set these rules for myself before writing a single line — breaking them is a
 | Date | Step | Result |
 |---|---|---|
 | 2026-11-02 | M1 · Step 1 | Git + GitHub connected, scaffold committed (`origin/main`) ✓ |
+| 2026-11-02 | M1 · Step 2 | Project journal replaces template README, in my own voice ✓ |
+| 2026-11-02 | M1 · Step 3 | Design tokens, base styles & five-theme Living Sky (Dawn / Morning / Afternoon / Sunset / Night, crossfade stack, env tokens, manual override plumbing) — approved after testing all five atmospheres ✓ |
 
 ### 💭 My Ideas Parking Lot
 
 *New ideas go here instead of derailing my current milestone. I review them at phase gates.*
+
+- (2026-11-02) **Manual sky-dial** — a small floating theme selector with **Auto** as default, letting visitors preview all five phases. *(Plumbing done in Step 3 — `setStoredPreference()` + event; UI pending.)*
+- (2026-11-02) **Sunset is my favorite phase** — tune future illustrations/3D lighting to make it shine as the signature mood.
 
 ---
 
