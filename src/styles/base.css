@@ -1,0 +1,150 @@
+/* ============================================================================
+   DREAMSCAPE — BASE STYLES ("The Laws of Physics")
+   ----------------------------------------------------------------------------
+   Consumes tokens.css only — raw values are forbidden here.
+   Answers three questions: how do browsers agree, what does default text
+   look like, and how does everything degrade for keyboards & motion-prefs.
+   ============================================================================ */
+
+/* --- The reset: every browser starts equal, no inherited surprises ------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* smooth scroll for future in-world navigation; details in Phase 5 */
+  scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+figure {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* --- The default creature of this world: the reader -------------------- */
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--color-ink);
+
+  /* THE LIVING SKY — safety net. The smooth version lives in .sky-stack
+     below; this gradient re-points instantly via the phase swaps, so even
+     with the layers unavailable the world still shows the correct hour. */
+  background-color: var(--sky-low);
+  background-image: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid) 55%,
+    var(--sky-low) 100%
+  );
+  background-attachment: fixed;
+  min-height: 100svh;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------------------------------------------
+   THE LIVING SKY — crossfade stack
+   ----------------------------------------------------------------------------
+   Five gradient layers, stacked. Each always carries its own phase's
+   gradient and stays at opacity 0 until its phase wins data-sky, then
+   fades in while the previous fades out. Two opposite fades in lockstep
+   always sum to full coverage — mathematically seamless, zero JS.
+   Gradients can't be transitioned; opacity can. That's the whole trick.
+   ---------------------------------------------------------------------------- */
+.sky-stack {
+  position: fixed;
+  inset: 0;                       /* top/right/bottom/left: 0 */
+  z-index: var(--z-sky);
+  pointer-events: none;           /* it's scenery — clicks pass through */
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-sky) var(--ease-soft);
+  will-change: opacity;
+}
+
+.sky--dawn      { background: linear-gradient(180deg, var(--sky-dawn-top) 0%,      var(--sky-dawn-mid) 55%,      var(--sky-dawn-low) 100%); }
+.sky--morning   { background: linear-gradient(180deg, var(--sky-morning-top) 0%,   var(--sky-morning-mid) 55%,   var(--sky-morning-low) 100%); }
+.sky--afternoon { background: linear-gradient(180deg, var(--sky-afternoon-top) 0%, var(--sky-afternoon-mid) 55%, var(--sky-afternoon-low) 100%); }
+.sky--sunset    { background: linear-gradient(180deg, var(--sky-sunset-top) 0%,    var(--sky-sunset-mid) 55%,    var(--sky-sunset-low) 100%); }
+.sky--night     { background: linear-gradient(180deg, var(--sky-night-top) 0%,     var(--sky-night-mid) 55%,     var(--sky-night-low) 100%); }
+
+html[data-sky="dawn"]      .sky--dawn      { opacity: 1; }
+html[data-sky="morning"]   .sky--morning   { opacity: 1; }
+html[data-sky="afternoon"] .sky--afternoon { opacity: 1; }
+html[data-sky="sunset"]    .sky--sunset    { opacity: 1; }
+html[data-sky="night"]     .sky--night     { opacity: 1; }
+
+/* --- Headings inherit the storybook voice ------------------------------ */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;          /* avoid lonely words on the last line */
+}
+
+h1 { font-size: var(--fs-hero); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+/* --- Links: lavender by day, always visible ---------------------------- */
+a {
+  color: var(--color-link);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+/* --- The golden ring: keyboard users deserve to see their magic --------- */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Text selection: dust instead of default blue ----------------------- */
+::selection {
+  background: var(--color-gold-soft);
+  color: var(--color-ink);
+}
+
+/* --- Motion respect: is this even moving? Good. ------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

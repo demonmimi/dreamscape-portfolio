@@ -1,0 +1,183 @@
+/* ============================================================================
+   DREAMSCAPE — DESIGN TOKENS ("The Constitution")
+   ----------------------------------------------------------------------------
+   Every named design value lives HERE, only here. No CSS outside this file
+   may ever write a raw color, font or size — it must read var(--token).
+
+   Naming convention: --{what}-{role}, kebab-case.
+
+   THE FIVE SKY PHASES follow the art direction bible:
+   "Palette magique du royaume céleste" — Dawn / Morning / Afternoon /
+   Sunset / Night. Each phase records its full 5-swatch reference palette
+   (for future objects), even though every sky gradient uses 3 stops.
+   ============================================================================ */
+
+:root {
+  /* --------------------------------------------------------------------
+     INK & PAPER — the reading layer. Constant at every hour:
+     text readable day and night, while only the sky changes behind it.
+     -------------------------------------------------------------------- */
+  --color-ink:            #3A3149;   /* deep plum ink — body text on paper */
+  --color-ink-soft:       #6E6280;   /* muted mauve — secondary text       */
+  --color-ink-on-dark:    #FFF9F0;   /* cream — headings on dark scenery   */
+  --color-paper:          #FDF7EC;   /* warm cream — content panels        */
+  --color-ivory:          #FFF9F0;
+  --color-paper-border:   #C9BCE0;   /* dusty lavender — panel outlines    */
+  --color-link:           #7B5EA7;   /* royal lavender                     */
+  --color-link-hover:     #E58BB0;   /* rose                               */
+  --color-focus:          #EFB54A;   /* gold — focus rings & magic only    */
+  --color-gold-soft:      #F2CF8D;   /* selection dust, soft highlights    */
+  --color-gold:           #EFB54A;
+
+  /* --------------------------------------------------------------------
+     THE LIVING SKY — five phases. JS sets <html data-sky="..."> from the
+     VISITOR's local clock. Gradient stops below (top → mid → low) are
+     sampled from the reference sheet; each swatch list documents the
+     phase's complete palette for future 3D/illustration work.
+     -------------------------------------------------------------------- */
+
+  /* 🌅 DAWN (05–08) — soft sunrise, golden hope
+     Swatches: peach #F7BE9C · pink #F08BB8 · lavender #A98BC9 ·
+               taupe #96705B · gold #E9A24F */
+  --sky-dawn-top:  #BB8BC9;         /* pale lavender dissolving from night  */
+  --sky-dawn-mid:  #F0A2B6;         /* blush pink clouds                    */
+  --sky-dawn-low:  #F5B87F;         /* golden peach — the waking sun        */
+
+  /* 🌼 MORNING (08–12) — fresh skies, bright dreams
+     Swatches: ice blue #C4E8F8 · blue #8CC4EE · mint #AEE0C3 ·
+               pale green #D8EDD3 · yellow #EFE9A8 */
+  --sky-morning-top:  #7FB0E9;      /* baby blue                            */
+  --sky-morning-mid:  #C7E3F6;      /* airy haze                            */
+  --sky-morning-low:  #EDF3E2;      /* mint-cream horizon                   */
+
+  /* ☀️ AFTERNOON (12–17) — warm daylight, full of life. Brightest phase. */
+  /*    Swatches: peach #F8CEA4 · coral pink #F285A2 · sky blue #A9CFF5 ·
+                  aqua #64CFDF · amber #F0B84E */
+  --sky-afternoon-top:  #6FAEF2;    /* bright clear blue                    */
+  --sky-afternoon-mid:  #FABFBB;    /* warm light coral                     */
+  --sky-afternoon-low:  #FBE3A2;    /* sunny pale gold                      */
+
+  /* 🌆 SUNSET (17–20) — dreamy twilight, magic returns. Deepest/dramatic. */
+  /*    Swatches: rose pink #F26BA5 · orchid #C967B8 · purple #8F63BC ·
+                  indigo #4A3B72 · gold #F2C24E */
+  --sky-sunset-top:  #4A3B72;       /* bluish purple, deep & moody          */
+  --sky-sunset-mid:  #B558A8;       /* rich magenta clouds                  */
+  --sky-sunset-low:  #F272A6;       /* dark rose pink, glowing gold edge    */
+
+  /* 🌙 NIGHT (20–05) — starry night, endless dreams
+     Swatches: indigo #3E3564 · violet #7C5CC4 · lavender #AE9BDD ·
+               pale lilac #D8C8F2 · moon cream #F2E7CE */
+  --sky-night-top:  #2A2250;        /* midnight navy                        */
+  --sky-night-mid:  #45367B;        /* deep violet                          */
+  --sky-night-low:  #6E52A8;        /* deep lavender clouds                 */
+
+  /* ENVIRONMENT TOKENS — lighting facts the future world will obey
+     (stars, crescent moon glow, warm light bloom). Ranges 0–1. */
+  --env-stars:    0;
+  --env-moon:     0;
+  --env-sun-glow: 0;
+
+  /* The three ACTIVE slots the page actually paints with.
+     Default = afternoon (bright + universally safe before JS resolves). */
+  --sky-top: var(--sky-afternoon-top);
+  --sky-mid: var(--sky-afternoon-mid);
+  --sky-low: var(--sky-afternoon-low);
+
+  /* --------------------------------------------------------------------
+     TYPOGRAPHY — roles, with safe fallbacks until fonts are installed.
+     -------------------------------------------------------------------- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-accent:  "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono:    ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --fs-hero:  clamp(2.75rem, 6vw, 4.5rem);
+  --fs-h2:    clamp(1.6rem, 3vw, 2.25rem);
+  --fs-h3:    clamp(1.2rem, 2vw, 1.45rem);
+  --fs-body:  1.0625rem;
+  --fs-small: 0.875rem;
+
+  /* --------------------------------------------------------------------
+     SPACE & SHAPE
+     -------------------------------------------------------------------- */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3.25rem;
+
+  --radius-sm:    10px;
+  --radius-paper: 18px;
+  --radius-lg:    28px;
+
+  --shadow-paper: 0 8px 24px rgba(58, 46, 85, 0.12);
+  --shadow-lift:  0 14px 40px rgba(58, 46, 85, 0.18);
+
+  /* --------------------------------------------------------------------
+     MOTION
+     -------------------------------------------------------------------- */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-med:  400ms;
+  --dur-slow: 800ms;
+  --dur-sky:  1600ms;               /* the Living Sky crossfade */
+
+  /* --------------------------------------------------------------------
+     LAYERS — sky (fixed backdrop) → world (3D) → content → UI → overlay
+     -------------------------------------------------------------------- */
+  --z-sky:     -1;
+  --z-world:   0;
+  --z-content: 10;
+  --z-ui:      20;
+  --z-overlay: 30;
+}
+
+/* ============================================================================
+   PHASE SWAPS — one attribute repaints the whole atmosphere:
+   gradient stops AND environment lighting. skyPhase.js chooses which.
+   ============================================================================ */
+
+:root[data-sky="dawn"] {
+  --sky-top: var(--sky-dawn-top);
+  --sky-mid: var(--sky-dawn-mid);
+  --sky-low: var(--sky-dawn-low);
+  --env-stars: 0.25;    /* last stars surrendering to the sun */
+  --env-moon: 0.55;     /* the crescent lingers, fading       */
+  --env-sun-glow: 1;    /* golden horizon glow, strongest     */
+}
+
+:root[data-sky="morning"] {
+  --sky-top: var(--sky-morning-top);
+  --sky-mid: var(--sky-morning-mid);
+  --sky-low: var(--sky-morning-low);
+  --env-stars: 0;
+  --env-moon: 0.4;      /* a pale daytime crescent, dreamily present */
+  --env-sun-glow: 0.4;
+}
+
+:root[data-sky="afternoon"] {
+  --sky-top: var(--sky-afternoon-top);
+  --sky-mid: var(--sky-afternoon-mid);
+  --sky-low: var(--sky-afternoon-low);
+  --env-stars: 0;
+  --env-moon: 0.3;      /* the crescent keeps watch over the kingdom */
+  --env-sun-glow: 0.85; /* bright, warm, full of life                */
+}
+
+:root[data-sky="sunset"] {
+  --sky-top: var(--sky-sunset-top);
+  --sky-mid: var(--sky-sunset-mid);
+  --sky-low: var(--sky-sunset-low);
+  --env-stars: 0.2;     /* the first stars, arriving early           */
+  --env-moon: 0.75;     /* a golden crescent above the twilight      */
+  --env-sun-glow: 0.9;  /* the famous melted-gold horizon            */
+}
+
+:root[data-sky="night"] {
+  --sky-top: var(--sky-night-top);
+  --sky-mid: var(--sky-night-mid);
+  --sky-low: var(--sky-night-low);
+  --env-stars: 1;       /* the full celestial sheet                  */
+  --env-moon: 1;        /* the crescent moon reigns                  */
+  --env-sun-glow: 0.15; /* only warm castle windows answer           */
+}
