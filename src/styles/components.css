@@ -1,0 +1,89 @@
+/* ============================================================================
+   DREAMSCAPE — COMPONENT STYLES
+   ----------------------------------------------------------------------------
+   Reusable pieces of the world: paper panels, sky-text and hero layout.
+   Consumes tokens only. Raw values are forbidden here.
+   ============================================================================ */
+
+/* --- .paper-panel: the reading surface of the world ----------------------
+   Everything professionals must read sits on this panel. It never
+   changes with the sky phases — that's why text contrast holds at every
+   hour of the day. */
+.paper-panel {
+  background: var(--color-paper);
+  border: 1px solid var(--color-paper-border);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-paper);
+  padding: var(--space-lg);
+}
+
+/* --- .on-sky: large display text that intentionally floats on the sky ----
+   Display sizes only (hero titles) — cream ink + a soft plum glow keeps
+   it readable across all five phases. Body text stays on paper panels. */
+.on-sky {
+  color: var(--color-ink-on-dark);
+  text-shadow: 0 1px 14px rgba(58, 46, 85, 0.45);
+}
+
+/* --- Home — The Heart Island (v1: simple, by design) --------------------- */
+.home-hero {
+  position: relative;
+  z-index: var(--z-content);
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.home-hero__greeting {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  letter-spacing: 0.02em;
+}
+
+.home-hero__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-hero);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.home-hero__title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.home-hero__intro {
+  max-width: 44ch;               /* a comfortable reading measure */
+  font-size: var(--fs-h3);
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.home-hero__flavor {
+  margin-top: var(--space-sm);
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--color-ink-soft);
+}
+
+.home-hero__cta {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--color-link);
+}
+
+.home-hero__cta:hover {
+  color: var(--color-link-hover);
+}
