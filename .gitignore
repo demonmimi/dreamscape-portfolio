@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local 3D work-in-progress (binary; never enters git history)
+3D_Assets/

@@ -195,11 +195,47 @@
   right: 0;
   border-radius: var(--radius-lg);
   padding: var(--space-sm);
-  display: grid;
-  grid-template-columns: repeat(2, max-content);  /* columns fit their texts  */
-  gap: var(--space-xs);
+  /* CLOCK REFINEMENT: two stacked sections (⏱ time / 🎨 mood) instead of
+     one flat chip grid — the sections must not lie about being the same
+     kind of control. */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   width: max-content;          /* hug the content — never squeezed into overlap */
   max-width: calc(100vw - 2 * var(--space-md)); /* only as a narrow-screen safety */
+  min-width: min(19rem, calc(100vw - 2 * var(--space-md)));
+}
+
+/* A dial section: a small-caps label over its own controls. */
+.sky-dial__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-xs);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.sky-dial__section:first-child {
+  padding-top: 0;
+  border-top: none;           /* the first section needs no separator */
+}
+
+.sky-dial__section-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.75;
+}
+
+.sky-dial__section-label em {
+  font-style: normal;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
 }
 
 .sky-dial__btn {
@@ -245,4 +281,94 @@
 .sky-dial__btn.is-active:hover {
   background: var(--color-gold-soft);
   color: var(--color-ink);
+}
+
+/* Small variant — the clock's play/pause and speed chips. */
+.sky-dial__btn--small {
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0 var(--space-xs);
+  font-size: 0.8rem;
+}
+
+/* Disabled (Auto mode owns the clock — simulation controls rest). */
+.sky-dial__btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+/* The manual time is shown while paused: the chip reads calm, not dirt. */
+.sky-dial__btn--small.is-static:not(.is-active) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.22));
+}
+
+/* The 24h readout — the dial's tiny watch face. */
+.sky-dial__time {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;  /* digits never shiver while playing */
+  min-width: 3.6em;
+  text-align: center;
+}
+
+.sky-dial__time-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.sky-dial__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+/* The hour slider — quiet, storybook-styled: gold thumb in cream track. */
+.sky-dial__slider {
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  accent-color: #b58a45;
+}
+
+/* Chromium/Webkit track + thumb */
+.sky-dial__slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.35));
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 2px rgba(58, 46, 85, 0.14);
+}
+.sky-dial__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fdf3d7, #d8a94f 70%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1px 4px rgba(58, 46, 85, 0.3);
+}
+
+/* Firefox equivalents */
+.sky-dial__slider::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.35));
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.sky-dial__slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fdf3d7, #d8a94f 70%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }

@@ -95,6 +95,32 @@ html[data-sky="afternoon"] .sky--afternoon { opacity: 1; }
 html[data-sky="sunset"]    .sky--sunset    { opacity: 1; }
 html[data-sky="night"]     .sky--night     { opacity: 1; }
 
+/* -------------------------------------------------------------------------------
+   THE LIVE SKY (v4.1 — one synchronized 24-hour world) --------------------------------
+   When the sky follows the CLOCK (no artistic override), the active slots
+   --sky-top/mid/low are re-stamped continuously by applySkyPhase() as the
+   clock's hour moves; this single layer paints them with the exact same
+   gradient geometry as the five palettes (top 0% · mid 55% · low 100%).
+   Colors glide with the hour — no crossfade needed when nothing steps.
+   The attribute rules ABOVE are left in place on purpose: switching to an
+   override (data-sky-live="off") hands the five-layer crossfade the stage
+   back, and the 0↔1 opacity transitions make even that mode change glide.
+   Specificity note: these rules come AFTER the data-sky swaps, so when
+   data-sky-live="on" they win the equal-specificity tie honestly (CSS
+   cascade order), with no !important anywhere.
+   ------------------------------------------------------------------------------- */
+.sky-live {
+  background: linear-gradient(
+    180deg,
+    var(--sky-top, var(--sky-afternoon-top)) 0%,
+    var(--sky-mid, var(--sky-afternoon-mid)) 55%,
+    var(--sky-low, var(--sky-afternoon-low)) 100%
+  );
+}
+
+html[data-sky-live="on"] .sky      { opacity: 0; }
+html[data-sky-live="on"] .sky-live { opacity: 1; }
+
 /* ----------------------------------------------------------------------------
    THE 3D WORLD LAYER — Stage 0 of the kingdom.
    Transparent canvas ABOVE the CSS sky, BELOW all content. If WebGL
